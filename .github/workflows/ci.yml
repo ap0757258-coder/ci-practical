@@ -1,0 +1,27 @@
+name: CI Pipeline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install testing tool
+        run: pip install pytest
+
+      - name: Build project
+        run: python -m py_compile calculator.py
+
+      - name: Run automated tests
+        run: pytest
